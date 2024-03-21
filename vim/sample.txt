@@ -1,0 +1,6 @@
+hello,
+Welcome to the Vim tutorial for beginners.
+
+line two
+line three
+line one

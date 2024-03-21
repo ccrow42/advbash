@@ -1,0 +1,3 @@
+Hi,
+Welcome to the Vim tutorial for beginners
+Hello and Welcome,
