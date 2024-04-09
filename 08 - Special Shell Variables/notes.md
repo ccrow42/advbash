@@ -65,4 +65,64 @@ exit 0
 
 Holds the number of arguments passed
 
+Can be used to ensure that a required number of arguments are passed.
+
+```
+
+#!/usr/bin/env bash
+if [[ $# -ne 1 ]]; then
+  terminate "Please pass one argument" "${CL_ARGS_ERROR}"
+fi
+```
+
+- use -ne so that we get the exact number of args
+- use -lt for a minimum args guard clause
+
+### ifs
+
+an environment variable that contains the seperators for an element
+
+Ansi-C quoting block
+
+
+We can change the seperator:
+
+```
+
+IFS=":"
+
+elements = "element1:element2:element3"
+for element in elements; do
+  echo "${element} is a value"
+done
+```
+
+We can also use the set command pass values in variables as args (and indeed, IFS changes that seperator)
+
+```
+IFS=","
+val="one,two,three"
+set -- ${val}
+echo $1
+```
+
+### Args
+
+`$* and $@`
+
+`$@` iterable elements for loops
+
+`$*` in a single string seperated by the first IFS seperator
+
+These should be expanded with double quotes 
+
+IFS=',' will replace the seperateor in `$*`
+
+**REMEMBER** the IFS var in a script only affects the expansion of a variable, so it MUST be re-assigned.
+
+
+### pid
+
+
+
 
