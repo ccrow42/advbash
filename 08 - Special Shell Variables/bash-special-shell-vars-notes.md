@@ -124,5 +124,74 @@ IFS=',' will replace the seperateor in `$*`
 ### pid
 
 
+$! gets the pid of the last command that was sent to the background
 
+$$ stores the pid of the current shell or script that it is being executed from
+
+subshells inherit variables from their parent, including $$
+
+### Zero ($0)
+
+It can
+- Get the name of the script
+- Get the directory
+
+eg
+
+`readonly SCRIPT_NAME=${0##*/}`
+
+This can be used for a usage block:
+
+```
+#!/usr/bin/env bash
+readonly SCRIPT_NAME=${0##*/}
+
+usage() {
+  cat <<USAGE
+Usage: ${SCRIPT_NAME} <name>
+This script greets the user with teh porvided name.
+Arguments:
+  name	The name of the user to greet
+Options
+  -h, --help show this help message and exit
+USAGE
+}
+
+if [[ $# -ne 1 ]]; then
+  usage
+  exit 1
+fi
+
+if [[ "${1}" == "-h" ]] || [[ "${1}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+name ] "${1}"
+echo "Hello, ${name}! Welocme to the example script!"
+exit 0
+```
+eg to get the absolute path of the script
+
+```
+readonly WORK_DIR=$(dirname $(readlink -f "$0"))
+readonly SCRIPT_NAME="${$0##/*}"
+
+cd "${WORK_DIR}/.."
+```
+
+### Underscore $_
+
+Mostly used for interactive shells
+
+Returns the *last* argument of the last command
+
+```
+ls -l file.conf
+cp $_ /tmp
+```
+
+### Dash $-
+
+options or flags from the current shell
 
