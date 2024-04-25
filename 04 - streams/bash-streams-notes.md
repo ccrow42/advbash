@@ -86,8 +86,17 @@ commands
 commands
 EOF
 
+cat <<- EOF
+	this will ignore tabs
+EOF
+
+cat << "EOF"
+This will not expand $VARS
+EOF
 
 ```
+
+
 
 There is also a herestrings:
 
