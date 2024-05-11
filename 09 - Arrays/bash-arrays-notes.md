@@ -95,3 +95,65 @@ Unset works with associative arrays
 `unset chest_drawer["shirts"]
 
 print key name with `echo "${!chest_drawer[@]}" Use this with a for loop
+
+
+### Array Demo
+
+Initialize an array from a file: mapfile
+-t removes trailing newline
+And a shell variable call RANDOM 0 to 32767
+
+```food_places.txt
+Rames
+Sushi
+Tacos
+Dal makhani
+```
+
+```lunch_selector.sh
+:set number
+:syntax on
+
+#!/usr/bin/env bash
+
+declare -a lunch_options
+work_dir=$(dirname "$(readlink -f "${0}")")
+food_places="${work_dir}/food_places.txt"
+readonly FILE_NOT_FOUND="150"
+readonly NO_OPTIONS_LEFT="180"
+
+terminate () {
+    local -r msg="${1}" # -r sets it readonly
+    local -r code="${2:-150}"
+    echo "${msg}" >&2
+    exit "${code}"
+}
+
+if [[ ! -f "${food_places}" ]]; then
+    terminate "Error food_places.txt file dousn't exist" "${FILE_NOT_FOUND}"
+fi
+
+function fillout_array() {
+    mapfile -t lunch_options < "${food_places}"
+    if [[ "${#lunch_options[@]}" -eq 0 ]]; then
+        terminate "Error: no food options left. Please add food options to food_places.txt" "${NO_OPTIONS_LEFT}"
+}
+
+update_options () {
+    if [[ "${#lunch_options[@] -eq 0 ]]; then
+        : > "${food_places}"
+    else
+        printf "%s\n" "${lunch_options[@]}" > "${food_places}"
+    fi
+
+}
+
+fillout_array
+
+index=$((RANDOM % "${#lunch_options[@]}"))
+
+unset "lunch_options[${index}]"
+
+update_options
+
+echo "${lunch_options[@]}"

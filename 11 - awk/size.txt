@@ -1,0 +1,10 @@
+Filesystem                Size  Used Avail Use% Mounted on
+devtmpfs                   10M     0   10M   0% /dev
+tmpfs                      32G  186M   32G   1% /dev/shm
+tmpfs                      32G  2.0M   32G   1% /run
+/dev/sda3                 850G  219G  588G  28% /
+efivarfs                  128K   28K   96K  23% /sys/firmware/efi/efivars
+/dev/sda1                1022M  4.0K 1022M   1% /efi
+tmpfs                     6.3G  4.8M  6.3G   1% /run/user/1000
+//10.0.1.8/home            53T   40T   14T  75% /home/ccrow/synology
+10.0.1.8:/volume1/Backup   53T   40T   14T  75% /mnt/backup
